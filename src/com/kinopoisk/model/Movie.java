@@ -17,10 +17,10 @@ public final class Movie {
 
     @Override
     public String toString() {
-        return "{"+
-                "\"movieTitle\": "+"\""+movieTitle+"\""+","+
-                "\"yearOfRelease\": "+yearOfRelease+","+
-                "\"director\": "+"\""+director+"\""+
+        return "{" +
+                "\"movieTitle\": " + "\"" + movieTitle + "\"" + "," +
+                "\"yearOfRelease\": " + yearOfRelease + "," +
+                "\"director\": " + "\"" + director + "\"" +
                 "}";
     }
 }

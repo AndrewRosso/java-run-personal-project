@@ -15,7 +15,7 @@ public class MovieRequest {
     @Override
     public String toString() {
         return "MovieRequest{" +
-                "name="+ name +'\''+
+                "name=" + name + '\'' +
                 '}';
     }
 }

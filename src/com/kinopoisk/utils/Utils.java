@@ -1,5 +1,7 @@
 package com.kinopoisk.utils;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +13,8 @@ public class Utils {
         }
 
         Map<String, String> result = new HashMap<>();
-
-        for (String param : query.split("&")) {
+        for (String param : URLDecoder.decode(query, StandardCharsets.UTF_8)
+                .replaceAll("%20", " ").split("&")) {
             String[] entry = param.split("=");
             if (entry.length > 1) {
                 result.put(entry[0], entry[1]);

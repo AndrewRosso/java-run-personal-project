@@ -30,13 +30,13 @@ public class MovieRequestHandler implements HttpHandler {
 
     private void handleResponce(HttpExchange httpExchange, String responseBody) throws IOException {
         OutputStream outputStream = httpExchange.getResponseBody();
-        httpExchange.sendResponseHeaders(200,responseBody.length());
+        httpExchange.sendResponseHeaders(200, responseBody.length());
         outputStream.write(responseBody.getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();
-}
+    }
 
-    private MovieRequest getMovieRequest(HttpExchange exchange)  {
+    private MovieRequest getMovieRequest(HttpExchange exchange) {
         String query = exchange.getRequestURI().getRawQuery();
         Map<String, String> parameters = Utils.queryToMap(query);
 
@@ -47,6 +47,6 @@ public class MovieRequestHandler implements HttpHandler {
     }
 
     private static class RequestParameters {
-        private static final String NAME = "NAME";
+        private static final String NAME = "name";
     }
 }
