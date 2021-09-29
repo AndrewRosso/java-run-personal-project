@@ -17,18 +17,10 @@ public class MovieService {
     public List<Movie> searchMovie(MovieRequest movieRequest) {
         List<Movie> listResult = new ArrayList<>();
         for (Movie movie : moviesLibrary.getMovie()) {
-            if (compareRequest(movie, movieRequest)) {
+            if (movie.getMovieTitle().equalsIgnoreCase(movieRequest.getName())) {
                 listResult.add(movie);
             }
         }
         return listResult;
-    }
-
-    private boolean compareRequest(Movie movie, MovieRequest movieRequest) {
-        return compare(movie.getMovieTitle(), movieRequest.getName());
-    }
-
-    private boolean compare(String sourceParam, String requestParam) {
-        return requestParam == null || requestParam.isEmpty() || sourceParam.equalsIgnoreCase(requestParam);
     }
 }

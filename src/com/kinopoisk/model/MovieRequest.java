@@ -1,16 +1,15 @@
 package com.kinopoisk.model;
 
 public class MovieRequest {
-    private String name;
+    private final String name;
+
+    public MovieRequest(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 
     @Override
     public String toString() {

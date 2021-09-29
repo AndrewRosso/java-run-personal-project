@@ -13,6 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
+import static com.kinopoisk.utils.Utils.convertAddressLineQueryWhitespace;
+
+
 public class MovieRequestHandler implements HttpHandler {
     private final MovieService movieService;
 
@@ -22,31 +25,23 @@ public class MovieRequestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        MovieRequest movieRequest = getMovieRequest(exchange);
+        String query = convertAddressLineQueryWhitespace(exchange.getRequestURI().getRawQuery());
+        MovieRequest movieRequest = getMovieRequest(query);
         List<Movie> listResult = movieService.searchMovie(movieRequest);
-        handleResponce(exchange, listResult.toString());
+        handleResponse(exchange, listResult.toString());
     }
 
-
-    private void handleResponce(HttpExchange httpExchange, String responseBody) throws IOException {
-        OutputStream outputStream = httpExchange.getResponseBody();
+    private void handleResponse(HttpExchange httpExchange, String responseBody) throws IOException {
         httpExchange.sendResponseHeaders(200, responseBody.length());
+        OutputStream outputStream = httpExchange.getResponseBody();
         outputStream.write(responseBody.getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();
     }
 
-    private MovieRequest getMovieRequest(HttpExchange exchange) {
-        String query = exchange.getRequestURI().getRawQuery();
+    private MovieRequest getMovieRequest(String query) {
         Map<String, String> parameters = Utils.queryToMap(query);
 
-        MovieRequest movieRequest = new MovieRequest();
-        movieRequest.setName(parameters.get(RequestParameters.NAME));
-        return movieRequest;
-
-    }
-
-    private static class RequestParameters {
-        private static final String NAME = "name";
+        return new MovieRequest(parameters.get("name"));
     }
 }
